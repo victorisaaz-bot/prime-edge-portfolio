@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1C1004"/>
+      <stop offset="100%" stop-color="#3D2008"/>
+    </linearGradient>
+    <linearGradient id="accGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FACC15"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F97316" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#1C1004" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+  <rect width="1280" height="720" fill="url(#glowGrad)"/>
+
+  <!-- Subtle Film Grain Grid -->
+  <g opacity="0.07" stroke="#ffffff" stroke-width="0.5">
+    <line x1="160" y1="0" x2="160" y2="720"/>
+    <line x1="320" y1="0" x2="320" y2="720"/>
+    <line x1="480" y1="0" x2="480" y2="720"/>
+    <line x1="640" y1="0" x2="640" y2="720"/>
+    <line x1="800" y1="0" x2="800" y2="720"/>
+    <line x1="960" y1="0" x2="960" y2="720"/>
+    <line x1="1120" y1="0" x2="1120" y2="720"/>
+    <line x1="0" y1="180" x2="1280" y2="180"/>
+    <line x1="0" y1="360" x2="1280" y2="360"/>
+    <line x1="0" y1="540" x2="1280" y2="540"/>
+  </g>
+
+  <!-- Geometric Abstract Artwork -->
+  
+      <rect x="580" y="200" width="120" height="260" rx="35" fill="none" stroke="url(#accGrad)" stroke-width="3" opacity="0.8"/>
+      <circle cx="540" cy="380" r="18" fill="none" stroke="#FACC15" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="730" cy="290" r="14" fill="none" stroke="#F97316" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="680" cy="440" r="22" fill="none" stroke="#FACC15" stroke-width="1.5" opacity="0.5"/>
+    
+
+  <!-- Letterbox bars hint -->
+  <rect x="0" y="0" width="1280" height="40" fill="#000000" opacity="0.6"/>
+  <rect x="0" y="680" width="1280" height="40" fill="#000000" opacity="0.6"/>
+
+  <!-- Cinema Header Badges -->
+  <text x="60" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#94A3B8" letter-spacing="2">PRIME EDGE AI // DIRECTORS CUT</text>
+  <text x="1220" y="26" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#F97316" letter-spacing="2">HIGH-ENERGY VERTICAL HOOKS</text>
+
+  <!-- Typography Content Block -->
+  <g transform="translate(80, 560)">
+    <rect x="-16" y="-30" width="220" height="24" rx="12" fill="#F97316" fill-opacity="0.15" stroke="#F97316" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="0" y="-14" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#F97316" letter-spacing="2.5">COMMERCIAL / PRODUCT</text>
+    <text x="0" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">TERRA NOVA BOTANICALS</text>
+    <text x="0" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#94A3B8" letter-spacing="1.5">EFFERVESCENT SPARKLING BEVERAGE</text>
+  </g>
+
+  <!-- Play Trigger Aesthetic -->
+  <g transform="translate(640, 340)">
+    <circle cx="0" cy="0" r="44" fill="#0B1F33" fill-opacity="0.75" stroke="#F97316" stroke-width="2"/>
+    <polygon points="-8,-14 16,0 -8,14" fill="#F97316"/>
+  </g>
+</svg>
