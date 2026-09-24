@@ -33,6 +33,7 @@
 /* Custom Utilities & Base Typography */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -40,7 +41,18 @@ body {
   color: #F0F4F8;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
+
+/* Hide scrollbar for Chrome, Safari, Edge, Firefox */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 
 /* Cinematic Glow & Backdrop Utilities */
 .glow-blue {

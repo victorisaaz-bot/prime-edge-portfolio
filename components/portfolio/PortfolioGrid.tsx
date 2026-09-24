@@ -42,8 +42,8 @@ export const PortfolioGrid: React.FC<PortfolioGridProps> = ({ initialProjects })
     <div className="space-y-10">
       {/* Category Filter Tabs & Search */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
-        {/* Category Buttons */}
-        <div className="flex flex-wrap gap-2 sm:gap-2.5">
+        {/* Category Buttons - Horizontally swipeable on mobile, wrapping on desktop */}
+        <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap items-center gap-2 sm:gap-2.5 pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.key;
@@ -52,16 +52,16 @@ export const PortfolioGrid: React.FC<PortfolioGridProps> = ({ initialProjects })
               <button
                 key={cat.key}
                 onClick={() => setSelectedCategory(cat.key)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap flex-shrink-0 min-h-[40px] ${
                   isSelected
                     ? "bg-[#00D2FF] text-[#06101E] shadow-lg shadow-cyan-500/20"
                     : "bg-[#0E243A] text-[#94A3B8] hover:text-white hover:bg-[#153452] border border-white/10"
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>{cat.label}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
                     isSelected ? "bg-black/20 text-[#06101E]" : "bg-white/10 text-white"
                   }`}
                 >

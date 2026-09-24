@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] max-w-5xl">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.15] sm:leading-[1.1] max-w-5xl">
             Turning Bold Ideas into{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D2FF] via-[#38BDF8] to-[#1565D8]">
               Cinematic AI Films
@@ -52,41 +52,41 @@ export const Hero: React.FC = () => {
           </h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-lg sm:text-xl text-[#94A3B8] max-w-3xl leading-relaxed font-normal">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-[#94A3B8] max-w-3xl leading-relaxed font-normal px-2">
             Specializing in photorealistic cinematic storytelling, high-converting product commercials, and stylized 3D animation—engineered with rock-solid character and visual consistency.
           </p>
 
           {/* Action CTAs */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button href="/contact" variant="cyan" size="lg">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0">
+            <Button href="/contact" variant="cyan" size="lg" className="w-full sm:w-auto min-h-[48px]">
               <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowUpRight className="w-4 h-4 ml-1.5" />
             </Button>
-            <Button href="/portfolio" variant="secondary" size="lg">
+            <Button href="/portfolio" variant="secondary" size="lg" className="w-full sm:w-auto min-h-[48px]">
               <span>View Portfolio</span>
-              <Clapperboard className="w-4 h-4 text-[#00D2FF]" />
+              <Clapperboard className="w-4 h-4 text-[#00D2FF] ml-1.5" />
             </Button>
           </div>
 
           {/* Trust Value Points */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-[#94A3B8]">
+          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-center gap-3 sm:gap-8 text-xs sm:text-sm text-[#94A3B8] max-w-md sm:max-w-none mx-auto">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
+              <CheckCircle2 className="w-4 h-4 text-[#00D2FF] flex-shrink-0" />
               <span>Immutable Character Likeness</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
+              <CheckCircle2 className="w-4 h-4 text-[#00D2FF] flex-shrink-0" />
               <span>4K Cinema Master Delivery</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#00D2FF]" />
+              <CheckCircle2 className="w-4 h-4 text-[#00D2FF] flex-shrink-0" />
               <span>Broadcast-Grade Sound & Editorial</span>
             </div>
           </div>
         </div>
 
         {/* Hero Showreel Showcase Banner */}
-        <div className="mt-16 sm:mt-20 relative max-w-5xl mx-auto rounded-2xl overflow-hidden glass-card p-2 sm:p-3 shadow-2xl shadow-black/80">
+        <div className="mt-12 sm:mt-20 relative max-w-5xl mx-auto rounded-2xl overflow-hidden glass-card p-2 sm:p-3 shadow-2xl shadow-black/80">
           <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-[#071320] group cursor-pointer" onClick={() => setReelModalOpen(true)}>
             {/* Poster / Showreel Artwork */}
             <Image
@@ -101,21 +101,21 @@ export const Hero: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#06101E] via-black/20 to-black/30 group-hover:opacity-80 transition-opacity" />
 
             {/* Play Button Indicator */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 transition-transform duration-300">
-                <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-current ml-1" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-4">
+              <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 active:scale-95 transition-transform duration-300">
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-current ml-1" />
               </div>
-              <div className="px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-bold tracking-wider text-white uppercase">
+              <div className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[11px] sm:text-sm font-bold tracking-wider text-white uppercase">
                 Watch 2025 Showreel (2 Min)
               </div>
             </div>
 
             {/* Bottom Bar Info */}
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-[#94A3B8] pointer-events-none">
-              <span className="font-mono bg-black/70 px-2.5 py-1 rounded border border-white/10 text-white">
+            <div className="absolute bottom-2.5 sm:bottom-4 left-2.5 sm:left-4 right-2.5 sm:right-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 text-[10px] sm:text-xs text-[#94A3B8] pointer-events-none">
+              <span className="font-mono bg-black/80 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-white/10 text-white truncate max-w-full">
                 DIRECTED BY SEGUN // PRIME EDGE
               </span>
-              <span className="font-mono bg-black/70 px-2.5 py-1 rounded border border-white/10 text-[#00D2FF]">
+              <span className="hidden xs:inline-block font-mono bg-black/80 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-white/10 text-[#00D2FF]">
                 RUNWAY GEN-3 // KLING // LUMA
               </span>
             </div>

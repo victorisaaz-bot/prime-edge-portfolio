@@ -66,7 +66,7 @@ export const ContactForm: React.FC = () => {
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-      className="p-8 sm:p-10 rounded-3xl bg-[#0B1C2E] border border-white/10 shadow-2xl space-y-6"
+      className="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-[#0B1C2E] border border-white/10 shadow-2xl space-y-5 sm:space-y-6"
     >
       {/* Required hidden inputs for Netlify Forms */}
       <input type="hidden" name="form-name" value="contact" />
@@ -84,8 +84,8 @@ export const ContactForm: React.FC = () => {
       )}
 
       {/* Row 1: Name & Email */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-white">
             Full Name <span className="text-[#00D2FF]">*</span>
           </label>
@@ -95,11 +95,11 @@ export const ContactForm: React.FC = () => {
             name="name"
             required
             placeholder="e.g. Alex Morgan"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-white">
             Work Email <span className="text-[#00D2FF]">*</span>
           </label>
@@ -109,14 +109,14 @@ export const ContactForm: React.FC = () => {
             name="email"
             required
             placeholder="alex@company.com"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
       </div>
 
       {/* Row 2: Company & Project Type */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="company" className="block text-xs font-bold uppercase tracking-wider text-white">
             Brand / Company Name
           </label>
@@ -125,11 +125,11 @@ export const ContactForm: React.FC = () => {
             id="company"
             name="company"
             placeholder="e.g. Nebula Studios or DTC Brand"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="projectType" className="block text-xs font-bold uppercase tracking-wider text-white">
             Project Category <span className="text-[#00D2FF]">*</span>
           </label>
@@ -138,7 +138,7 @@ export const ContactForm: React.FC = () => {
             name="projectType"
             required
             defaultValue="commercial"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           >
             <option value="commercial">Commercial / Product Ad</option>
             <option value="cinematic">Cinematic AI Short Film</option>
@@ -150,8 +150,8 @@ export const ContactForm: React.FC = () => {
       </div>
 
       {/* Row 3: Budget & Desired Delivery Date */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="budget" className="block text-xs font-bold uppercase tracking-wider text-white">
             Estimated Budget (USD) <span className="text-[#00D2FF]">*</span>
           </label>
@@ -160,7 +160,7 @@ export const ContactForm: React.FC = () => {
             name="budget"
             required
             defaultValue="standard"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           >
             <option value="basic">Basic — $5</option>
             <option value="standard">Standard — $20</option>
@@ -168,7 +168,7 @@ export const ContactForm: React.FC = () => {
           </select>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5 sm:space-y-2">
           <label htmlFor="deliveryDate" className="block text-xs font-bold uppercase tracking-wider text-white">
             Desired Target Date
           </label>
@@ -177,13 +177,13 @@ export const ContactForm: React.FC = () => {
             id="deliveryDate"
             name="deliveryDate"
             placeholder="e.g. Within 2 weeks / ASAP"
-            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF]"
+            className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
           />
         </div>
       </div>
 
       {/* Project Goal */}
-      <div className="space-y-2">
+      <div className="space-y-1.5 sm:space-y-2">
         <label htmlFor="projectGoal" className="block text-xs font-bold uppercase tracking-wider text-white">
           Project Objective / Goal
         </label>
@@ -192,12 +192,12 @@ export const ContactForm: React.FC = () => {
           id="projectGoal"
           name="projectGoal"
           placeholder="e.g. Increase DTC ad conversion by 30% / Pitch pilot to investors"
-          className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF]"
+          className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF]"
         />
       </div>
 
       {/* Message */}
-      <div className="space-y-2">
+      <div className="space-y-1.5 sm:space-y-2">
         <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-white">
           Project Details & Vision <span className="text-[#00D2FF]">*</span>
         </label>
@@ -207,12 +207,12 @@ export const ContactForm: React.FC = () => {
           rows={4}
           required
           placeholder="Tell us about the storyline, product, visual tone, reference links, and any specific deliverables needed..."
-          className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-sm focus:outline-none focus:border-[#00D2FF] resize-y"
+          className="w-full px-4 py-3 rounded-xl bg-[#06101E] border border-white/10 text-white placeholder-[#627D98] text-base sm:text-sm focus:outline-none focus:border-[#00D2FF] resize-y"
         />
       </div>
 
       {/* Consent Checkbox */}
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 py-1">
         <input
           type="checkbox"
           id="consent"
@@ -231,7 +231,7 @@ export const ContactForm: React.FC = () => {
         variant="cyan"
         size="lg"
         disabled={submitting}
-        className="w-full"
+        className="w-full min-h-[50px]"
       >
         {submitting ? (
           <span>Sending Inquiry...</span>

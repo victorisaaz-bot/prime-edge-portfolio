@@ -47,16 +47,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = fa
           <button
             onClick={() => setModalOpen(true)}
             aria-label={`Watch preview of ${project.title}`}
-            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100 focus:outline-none"
+            className="absolute inset-0 flex items-center justify-center opacity-85 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100 focus:outline-none"
           >
-            <span className="flex items-center justify-center w-14 h-14 rounded-full bg-[#00D2FF] text-[#06101E] shadow-xl shadow-cyan-500/40 transform scale-90 group-hover:scale-100 transition-transform duration-300 cursor-pointer">
-              <Play className="w-6 h-6 fill-current ml-0.5" />
+            <span className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#00D2FF] text-[#06101E] shadow-xl shadow-cyan-500/40 transform scale-100 sm:scale-90 sm:group-hover:scale-100 active:scale-95 transition-transform duration-300 cursor-pointer">
+              <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current ml-0.5" />
             </span>
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between bg-[#0B1C2E]">
+        <div className="flex flex-col flex-1 p-4 sm:p-6 justify-between bg-[#0B1C2E]">
           <div>
             <div className="flex items-start justify-between gap-2 mb-2">
               <h3 className="text-xl font-bold text-white group-hover:text-[#00D2FF] transition-colors leading-snug">

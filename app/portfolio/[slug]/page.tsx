@@ -88,18 +88,18 @@ export default async function ProjectDetailPage({ params }: Props) {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
             {project.title}
           </h1>
 
-          <p className="text-lg sm:text-xl text-[#94A3B8] leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-[#94A3B8] leading-relaxed">
             {project.tagline}
           </p>
         </div>
 
         {/* Project Video / Media Feature Banner */}
-        <div className="relative rounded-2xl overflow-hidden glass-card p-2 sm:p-3 mb-14 shadow-2xl">
-          <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
+        <div className="relative rounded-xl sm:rounded-2xl overflow-hidden glass-card p-1.5 sm:p-3 mb-10 sm:mb-14 shadow-2xl">
+          <div className="relative aspect-video w-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
             <ProjectVideoPlayer
               title={project.title}
               coverPoster={project.coverPoster}
@@ -110,7 +110,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
 
         {/* Meta Specs Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl bg-[#0B1C2E] border border-white/10 mb-14">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-[#0B1C2E] border border-white/10 mb-10 sm:mb-14">
           <div className="space-y-1">
             <span className="text-[11px] font-bold uppercase tracking-wider text-[#627D98] flex items-center gap-1.5">
               <Tv className="w-3.5 h-3.5 text-[#00D2FF]" /> Client / Scope

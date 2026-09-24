@@ -22,6 +22,17 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
@@ -31,15 +42,15 @@ export const Header: React.FC = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[#06101E]/90 backdrop-blur-md py-3.5 border-b border-white/10 shadow-lg shadow-black/20"
-          : "bg-transparent py-5"
+        isScrolled || mobileMenuOpen
+          ? "bg-[#06101E]/95 backdrop-blur-xl py-3 border-b border-white/10 shadow-lg shadow-black/30"
+          : "bg-transparent py-4 sm:py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 group focus:outline-none">
-          <div className="relative w-40 h-10 transition-transform group-hover:scale-[1.02]">
+        <Link href="/" className="flex items-center gap-2 group focus:outline-none" onClick={() => setMobileMenuOpen(false)}>
+          <div className="relative w-36 sm:w-40 h-9 sm:h-10 transition-transform group-hover:scale-[1.02]">
             <Image
               src="/brand/logo.svg"
               alt="Prime Edge - AI Video Expert"
@@ -88,18 +99,18 @@ export const Header: React.FC = () => {
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
-            className="p-2 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors"
+            aria-label={mobileMenuOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+            className="w-11 h-11 flex items-center justify-center rounded-xl bg-[#0B1C2E] border border-white/10 text-white hover:border-[#00D2FF]/40 active:scale-95 transition-all"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-6 h-6 text-[#00D2FF]" /> : <Menu className="w-6 h-6 text-white" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0B1C2E] border-b border-white/10 px-6 py-6 space-y-4 animate-fadeIn shadow-2xl">
-          <nav className="flex flex-col space-y-3">
+        <div className="md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto bg-[#071320] border-b border-white/10 px-5 py-6 space-y-5 animate-fadeIn shadow-2xl">
+          <nav className="flex flex-col space-y-1.5">
             {siteConfig.navLinks.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -109,22 +120,38 @@ export const Header: React.FC = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-base font-medium px-3 py-2 rounded-lg transition-colors ${
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`min-h-[44px] flex items-center justify-between text-base font-semibold px-4 py-3 rounded-xl transition-colors ${
                     isActive
-                      ? "bg-[#1565D8]/20 text-[#00D2FF]"
+                      ? "bg-[#1565D8]/20 text-[#00D2FF] border border-[#00D2FF]/30"
                       : "text-[#94A3B8] hover:text-white hover:bg-white/5"
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {isActive && <span className="w-2 h-2 rounded-full bg-[#00D2FF]" />}
                 </Link>
               );
             })}
           </nav>
-          <div className="pt-4 border-t border-white/10">
-            <Button href="/contact" variant="cyan" size="md" className="w-full">
+          
+          <div className="pt-4 border-t border-white/10 space-y-3">
+            <Button
+              href="/contact"
+              variant="cyan"
+              size="lg"
+              className="w-full text-center min-h-[48px]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowUpRight className="w-4 h-4 ml-1.5" />
             </Button>
+
+            <a
+              href={`mailto:${siteConfig.contactEmail}`}
+              className="min-h-[44px] flex items-center justify-center gap-2 text-xs font-semibold text-[#94A3B8] hover:text-[#00D2FF] transition-colors py-2"
+            >
+              <span>Direct: {siteConfig.contactEmail}</span>
+            </a>
           </div>
         </div>
       )}
