@@ -1,13 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { VideoModal } from "@/components/ui/VideoModal";
-import { Play, ArrowUpRight, Sparkles, CheckCircle2, Clapperboard } from "lucide-react";
+import { Play, ArrowUpRight, Sparkles, CheckCircle2, Clapperboard, Volume2 } from "lucide-react";
 
 export const Hero: React.FC = () => {
   const [reelModalOpen, setReelModalOpen] = useState(false);
+  const [isReelHovered, setIsReelHovered] = useState(false);
+  const reelHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleReelMouseEnter = () => {
+    if (reelHoverTimeoutRef.current) clearTimeout(reelHoverTimeoutRef.current);
+    reelHoverTimeoutRef.current = setTimeout(() => {
+      setIsReelHovered(true);
+    }, 180);
+  };
+
+  const handleReelMouseLeave = () => {
+    if (reelHoverTimeoutRef.current) {
+      clearTimeout(reelHoverTimeoutRef.current);
+      reelHoverTimeoutRef.current = null;
+    }
+    setIsReelHovered(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (reelHoverTimeoutRef.current) clearTimeout(reelHoverTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -87,7 +110,12 @@ export const Hero: React.FC = () => {
 
         {/* Hero Showreel Showcase Banner */}
         <div className="mt-12 sm:mt-20 relative max-w-5xl mx-auto rounded-2xl overflow-hidden glass-card p-2 sm:p-3 shadow-2xl shadow-black/80">
-          <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-[#071320] group cursor-pointer" onClick={() => setReelModalOpen(true)}>
+          <div
+            className="relative aspect-video w-full rounded-xl overflow-hidden bg-[#071320] group cursor-pointer"
+            onClick={() => setReelModalOpen(true)}
+            onMouseEnter={handleReelMouseEnter}
+            onMouseLeave={handleReelMouseLeave}
+          >
             {/* Poster / Showreel Artwork */}
             <Image
               src="/thumbnails/aura-glow.jpg"
@@ -96,12 +124,28 @@ export const Hero: React.FC = () => {
               priority
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
+
+            {/* Hover Autoplay Video Preview */}
+            {isReelHovered && (
+              <div className="absolute inset-0 z-10 overflow-hidden bg-black animate-fadeIn pointer-events-none">
+                <iframe
+                  src="https://drive.google.com/file/d/1bnkgbNHmmI8h8UOmhHd2s0tzOqr9FIcS/preview?autoplay=1"
+                  title="Prime Edge Showreel Preview"
+                  allow="autoplay"
+                  className="w-full h-full border-0 pointer-events-none scale-105"
+                />
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-cyan-400/30 text-[10px] font-medium text-cyan-300 pointer-events-none">
+                  <Volume2 className="w-3 h-3 text-[#00D2FF]" />
+                  <span>Click for full audio</span>
+                </div>
+              </div>
+            )}
             
             {/* Cinematic Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06101E] via-black/20 to-black/30 group-hover:opacity-80 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06101E] via-black/20 to-black/30 group-hover:opacity-40 transition-opacity pointer-events-none" />
 
             {/* Play Button Indicator */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-4">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 sm:gap-4 pointer-events-none">
               <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 active:scale-95 transition-transform duration-300">
                 <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-current ml-1" />
               </div>
@@ -111,7 +155,7 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Bottom Bar Info */}
-            <div className="absolute bottom-2.5 sm:bottom-4 left-2.5 sm:left-4 right-2.5 sm:right-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 text-[10px] sm:text-xs text-[#94A3B8] pointer-events-none">
+            <div className="absolute bottom-2.5 sm:bottom-4 left-2.5 sm:left-4 right-2.5 sm:right-4 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 text-[10px] sm:text-xs text-[#94A3B8] pointer-events-none">
               <span className="font-mono bg-black/80 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded border border-white/10 text-white truncate max-w-full">
                 DIRECTED BY SEGUN // PRIME EDGE
               </span>

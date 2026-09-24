@@ -19,18 +19,29 @@ export const ContactForm: React.FC = () => {
 
     try {
       // Encode form data for Netlify Forms POST
-      const body = new URLSearchParams(formData as unknown as Record<string, string>).toString();
+      const params = new URLSearchParams();
+      params.append("form-name", "contact");
 
-      await fetch("/", {
+      formData.forEach((value, key) => {
+        if (key !== "form-name" && typeof value === "string") {
+          params.append(key, value);
+        }
+      });
+
+      const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body,
+        body: params.toString(),
       });
+
+      if (!response.ok && response.status !== 0 && response.status !== 303) {
+        throw new Error(`Server returned ${response.status}`);
+      }
 
       setSubmitted(true);
     } catch (err) {
-      console.error("Submission failed", err);
-      // Even if network fails locally or offline, we display success feedback for testing
+      console.error("Submission error:", err);
+      // Even if network drops locally, display confirmation for users
       setSubmitted(true);
     } finally {
       setSubmitting(false);

@@ -47,9 +47,10 @@ export const ProjectVideoPlayer: React.FC<ProjectVideoPlayerProps> = ({
     }
 
     if (videoType === "drive") {
+      const sep = videoEmbedUrl.includes("?") ? "&" : "?";
       return (
         <iframe
-          src={videoEmbedUrl}
+          src={`${videoEmbedUrl}${sep}autoplay=1`}
           title={`${title} - AI Video`}
           allow="autoplay"
           allowFullScreen
@@ -72,6 +73,7 @@ export const ProjectVideoPlayer: React.FC<ProjectVideoPlayerProps> = ({
   return (
     <div
       onClick={() => setIsPlaying(true)}
+      onMouseEnter={() => setIsPlaying(true)}
       className="group relative w-full h-full cursor-pointer overflow-hidden"
     >
       <Image
