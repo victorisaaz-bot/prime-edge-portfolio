@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Play } from "lucide-react";
 
+import { getDirectStreamUrl } from "@/lib/videoUtils";
+
 interface ProjectVideoPlayerProps {
   title: string;
   coverPoster: string;
@@ -34,27 +36,17 @@ export const ProjectVideoPlayer: React.FC<ProjectVideoPlayerProps> = ({
   }
 
   if (isPlaying) {
-    if (videoType === "mp4") {
+    if (videoType === "mp4" || videoType === "drive") {
+      const streamUrl = videoType === "drive"
+        ? getDirectStreamUrl(videoEmbedUrl)
+        : videoEmbedUrl;
       return (
         <video
-          src={videoEmbedUrl}
+          src={streamUrl}
           controls
           autoPlay
           playsInline
-          className="w-full h-full object-contain"
-        />
-      );
-    }
-
-    if (videoType === "drive") {
-      const sep = videoEmbedUrl.includes("?") ? "&" : "?";
-      return (
-        <iframe
-          src={`${videoEmbedUrl}${sep}autoplay=1`}
-          title={`${title} - AI Video`}
-          allow="autoplay"
-          allowFullScreen
-          className="w-full h-full border-0"
+          className="w-full h-full object-contain bg-black"
         />
       );
     }

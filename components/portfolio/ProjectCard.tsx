@@ -7,6 +7,7 @@ import { Project } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { VideoModal } from "@/components/ui/VideoModal";
 import { Play, ArrowUpRight, Volume2 } from "lucide-react";
+import { getDirectStreamUrl, getYouTubePreviewUrl } from "@/lib/videoUtils";
 
 interface ProjectCardProps {
   project: Project;
@@ -17,12 +18,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = fa
   const [modalOpen, setModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleMouseEnter = () => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovered(true);
-    }, 180);
+    }, 60);
   };
 
   const handleMouseLeave = () => {
@@ -34,21 +36,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = fa
   };
 
   useEffect(() => {
+    if (isHovered && videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  }, [isHovered]);
+
+  useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     };
   }, []);
 
-  const getYouTubePreviewUrl = (url: string) => {
-    const videoId = url.split("/embed/")[1]?.split("?")[0] || "";
-    const sep = url.includes("?") ? "&" : "?";
-    return `${url}${sep}autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1`;
-  };
-
-  const getDrivePreviewUrl = (url: string) => {
-    const sep = url.includes("?") ? "&" : "?";
-    return `${url}${sep}autoplay=1`;
-  };
+  const isDirectVideo = project.videoType === "mp4" || project.videoType === "drive";
+  const directVideoUrl = isDirectVideo ? getDirectStreamUrl(project.videoEmbedUrl) : "";
 
   return (
     <>
@@ -71,21 +76,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = fa
           {/* Hover Autoplay Video Preview */}
           {isHovered && project.videoEmbedUrl && (
             <div className="absolute inset-0 z-10 overflow-hidden bg-black animate-fadeIn pointer-events-none">
-              {project.videoType === "mp4" ? (
+              {isDirectVideo ? (
                 <video
-                  src={project.videoEmbedUrl}
+                  ref={videoRef}
+                  src={directVideoUrl}
                   autoPlay
                   muted
                   loop
                   playsInline
+                  preload="auto"
                   className="w-full h-full object-cover"
-                />
-              ) : project.videoType === "drive" ? (
-                <iframe
-                  src={getDrivePreviewUrl(project.videoEmbedUrl)}
-                  title={`${project.title} Preview`}
-                  allow="autoplay"
-                  className="w-full h-full border-0 pointer-events-none scale-105"
                 />
               ) : (
                 <iframe
@@ -121,7 +121,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, priority = fa
           <button
             onClick={() => setModalOpen(true)}
             aria-label={`Watch preview of ${project.title}`}
-            className="absolute inset-0 z-20 flex items-center justify-center opacity-85 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100 focus:outline-none"
+            className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 focus:outline-none ${
+              isHovered ? "opacity-0 hover:opacity-100" : "opacity-85 sm:opacity-0 sm:group-hover:opacity-100"
+            }`}
           >
             <span className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#00D2FF] text-[#06101E] shadow-xl shadow-cyan-500/40 transform scale-100 sm:scale-90 sm:group-hover:scale-100 active:scale-95 transition-transform duration-300 cursor-pointer">
               <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current ml-0.5" />

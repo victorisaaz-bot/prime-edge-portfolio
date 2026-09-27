@@ -3,6 +3,8 @@
 import React, { useEffect } from "react";
 import { X } from "lucide-react";
 
+import { getDirectStreamUrl } from "@/lib/videoUtils";
+
 interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -68,21 +70,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
         {/* Video Player Frame */}
         <div className="relative w-full aspect-video bg-black">
           {videoUrl ? (
-            videoType === "mp4" ? (
+            videoType === "mp4" || videoType === "drive" ? (
               <video
-                src={videoUrl}
+                src={videoType === "drive" ? getDirectStreamUrl(videoUrl) : videoUrl}
                 controls
                 autoPlay
                 playsInline
                 className="w-full h-full object-contain"
-              />
-            ) : videoType === "drive" ? (
-              <iframe
-                src={videoUrl}
-                title={title}
-                allow="autoplay"
-                allowFullScreen
-                className="w-full h-full border-0"
               />
             ) : (
               <iframe
