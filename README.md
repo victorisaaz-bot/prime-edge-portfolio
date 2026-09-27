@@ -19,9 +19,7 @@ Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and optim
   - 3D Cartoon Animation & Kids Content
 - **Comprehensive About Page (`/about`)**:
   - Segun's directorial background, 4 creative commandments, and platform mastery.
-  - Direct links to verified profiles on **Fiverr Pro**, **Upwork**, and **LinkedIn**.
-- **Blog & Resources Foundation (`/blog` & `/blog/[slug]`)**:
-  - Authoritative field notes on character consistency, commercial ROI, and the 5-step production pipeline.
+  - Direct links to verified profiles on **WhatsApp**, **Upwork**, and **LinkedIn**.
 - **Inquiry Form with Netlify Forms (`/contact`)**:
   - Ready for Netlify form processing with spam honeypot and client feedback states.
   - Direct email click-to-copy alternative.
@@ -70,9 +68,6 @@ prime-edge-portfolio/
 │   │   └── [slug]/page.tsx          # Dynamic Project Case Study template
 │   ├── services/page.tsx            # 3 Core Pillars, timelines & deliverables
 │   ├── about/page.tsx               # Segun's bio, filmmaking principles & tech stack
-│   ├── blog/
-│   │   ├── page.tsx                 # Insights & resources index
-│   │   └── [slug]/page.tsx          # Dynamic article reader
 │   ├── contact/page.tsx             # Inquiry form & direct contact
 │   ├── privacy/page.tsx             # Privacy policy & NDA handling
 │   ├── not-found.tsx                # Cinematic 404 page
@@ -111,13 +106,8 @@ No CMS is needed for the first release. All content is typed and version-control
 4. Add your YouTube/Vimeo embed URL or direct video link to `videoEmbedUrl`.
 5. Set `featured: true` (and `featuredOrder: 1-6`) to highlight it on the homepage.
 
-### Adding a Blog Post
-1. Open [`data/posts.ts`](data/posts.ts).
-2. Add a new `BlogPost` object with your Markdown/HTML content.
-3. It will automatically appear on `/blog` and create a statically-generated page at `/blog/[slug]`.
-
-### Updating Social or Marketplace Links
-- Edit [`data/siteConfig.ts`](data/siteConfig.ts) to update your LinkedIn, Fiverr, Upwork, YouTube, or contact email.
+### Updating Contact, WhatsApp or Marketplace Links
+- Edit [`data/siteConfig.ts`](data/siteConfig.ts) to update your WhatsApp, LinkedIn, Upwork, or contact email.
 
 ---
 

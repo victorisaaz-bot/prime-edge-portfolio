@@ -8,18 +8,16 @@ export const siteConfig = {
   url: "https://primeedge.ai", // Production domain
   contactEmail: "kolawoleadedoyin8@gmail.com",
   socialLinks: {
-    linkedin: "https://www.linkedin.com",
-    fiverr: "https://www.fiverr.com",
-    upwork: "https://www.upwork.com",
-    youtube: "https://www.youtube.com",
-    x: "https://x.com",
-    instagram: "https://www.instagram.com",
+    linkedin: "https://www.linkedin.com/in/adedoyin-segun-068bab272",
+    upwork: "https://www.upwork.com/freelancers/~01ed115c9f010f0b40",
+    whatsapp: "https://wa.me/2349064843098",
+    whatsappNumber: "09064843098",
+    whatsappDisplay: "+234 906 484 3098",
   },
   navLinks: [
     { label: "Work", href: "/portfolio" },
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
-    { label: "Insights", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
   toolsStack: [

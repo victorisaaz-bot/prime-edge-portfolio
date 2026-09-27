@@ -38,17 +38,17 @@ export const CTASection: React.FC = () => {
             </a>
           </div>
 
-          {/* Alternative hiring platforms */}
+          {/* Direct channels & verified platforms */}
           <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs text-[#94A3B8]">
-            <span>Also available for hire on:</span>
+            <span>Connect & collaborate on:</span>
             <a
-              href={siteConfig.socialLinks.fiverr}
+              href={siteConfig.socialLinks.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-white hover:text-[#00D2FF] inline-flex items-center gap-1 transition-colors"
+              className="font-bold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1 transition-colors"
             >
-              <span>Fiverr Pro</span>
-              <ExternalLink className="w-3 h-3 text-[#627D98]" />
+              <span>WhatsApp ({siteConfig.socialLinks.whatsappNumber})</span>
+              <ExternalLink className="w-3 h-3 text-emerald-400/70" />
             </a>
             <span className="text-white/20">&bull;</span>
             <a

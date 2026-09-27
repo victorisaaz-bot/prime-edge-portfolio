@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/data/siteConfig";
 import { projects } from "@/data/projects";
-import { posts } from "@/data/posts";
 
 export const dynamic = "force-static";
 
@@ -14,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/portfolio",
     "/services",
     "/about",
-    "/blog",
     "/contact",
     "/privacy",
   ].map((route) => ({
@@ -32,14 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // Dynamic blog routes
-  const blogRoutes = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes];
+  return [...staticRoutes, ...projectRoutes];
 }
 

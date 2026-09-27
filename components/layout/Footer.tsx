@@ -57,11 +57,6 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
-                  AI Filmmaking Insights
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
                   Project Inquiries
                 </Link>
@@ -103,12 +98,23 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Col 5: Platforms & Socials */}
+          {/* Col 5: Platforms & Direct Channels */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-4">
-              Platforms & Marketplaces
+              Direct Channels
             </h4>
             <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href={siteConfig.socialLinks.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors"
+                >
+                  <span>WhatsApp Chat</span>
+                  <ExternalLink className="w-3 h-3 text-emerald-400/70" />
+                </a>
+              </li>
               <li>
                 <a
                   href={siteConfig.socialLinks.linkedin}
@@ -116,18 +122,7 @@ export const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
                 >
-                  <span>LinkedIn</span>
-                  <ExternalLink className="w-3 h-3 text-[#627D98]" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.socialLinks.fiverr}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
-                >
-                  <span>Fiverr Pro Profile</span>
+                  <span>LinkedIn Profile</span>
                   <ExternalLink className="w-3 h-3 text-[#627D98]" />
                 </a>
               </li>
@@ -144,24 +139,11 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href={siteConfig.socialLinks.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+                  href={`mailto:${siteConfig.contactEmail}`}
+                  className="inline-flex items-center gap-1.5 hover:text-[#00D2FF] transition-colors"
                 >
-                  <span>YouTube Channel</span>
-                  <ExternalLink className="w-3 h-3 text-[#627D98]" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={siteConfig.socialLinks.x}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
-                >
-                  <span>X / Twitter</span>
-                  <ExternalLink className="w-3 h-3 text-[#627D98]" />
+                  <span>Direct Email</span>
+                  <Mail className="w-3 h-3 text-[#00D2FF]" />
                 </a>
               </li>
             </ul>
