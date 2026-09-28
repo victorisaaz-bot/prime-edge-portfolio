@@ -22,14 +22,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const isDirectVideo = project.videoType === "mp4" || project.videoType === "drive";
   const directVideoUrl = isDirectVideo ? getDirectStreamUrl(project.videoEmbedUrl) : "";
 
-  // Auto-play videos automatically without user gesture
+  // Auto-play video automatically on load and handle scroll visibility
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -38,25 +37,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     video.muted = true;
     video.playsInline = true;
 
-    // Use IntersectionObserver to play when visible and pause when off-screen
+    // Immediately attempt playback
+    const initialPlay = video.play();
+    if (initialPlay !== undefined) {
+      initialPlay
+        .then(() => setVideoLoaded(true))
+        .catch(() => {});
+    }
+
+    // Use IntersectionObserver to pause when scrolled far off-screen
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             video.defaultMuted = true;
             video.muted = true;
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(() => {
-                // If autoplay is delayed, retry on user interaction
-              });
-            }
+            video.play().catch(() => {});
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.15, rootMargin: "150px" }
+      { threshold: 0.05, rootMargin: "300px" }
     );
 
     if (cardRef.current) {
@@ -74,30 +76,26 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <>
         <div
           ref={cardRef}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
           className="group relative flex flex-col lg:flex-row rounded-3xl overflow-hidden bg-gradient-to-b from-[#0C1E32] to-[#071322] border border-white/15 hover:border-[#00D2FF]/60 p-4 sm:p-6 gap-6 sm:gap-8 shadow-2xl hover:shadow-[0_0_40px_rgba(0,210,255,0.2)] transition-all duration-500 hover:-translate-y-1"
         >
           {/* Large Video Frame with Automatic Playback */}
           <div
             onClick={() => setModalOpen(true)}
-            className="relative aspect-[16/10] sm:aspect-video w-full lg:w-3/5 rounded-2xl overflow-hidden bg-black border border-white/10 group-hover:border-cyan-400/50 transition-colors flex-shrink-0 cursor-pointer"
+            className="relative aspect-[16/10] sm:aspect-video w-full lg:w-3/5 rounded-2xl overflow-hidden bg-[#071320] border border-white/10 group-hover:border-cyan-400/50 transition-colors flex-shrink-0 cursor-pointer"
           >
-            {/* Poster fallback until video plays */}
+            {/* Poster fallback while video buffers */}
             <Image
               src={project.coverPoster}
               alt={`${project.title} - AI Video Production by Prime Edge`}
               fill
               priority={priority}
               sizes="(max-width: 1024px) 100vw, 60vw"
-              className={`object-cover transition-opacity duration-700 ${
-                videoLoaded ? "opacity-0" : "opacity-100"
-              }`}
+              className="object-cover"
             />
 
             {/* Continuous Autoplay Video Preview */}
             {project.videoEmbedUrl && (
-              <div className="absolute inset-0 z-10 overflow-hidden bg-black">
+              <div className="absolute inset-0 z-10 overflow-hidden">
                 {isDirectVideo ? (
                   <video
                     ref={videoRef}
@@ -108,7 +106,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     playsInline
                     preload="auto"
                     onLoadedData={() => setVideoLoaded(true)}
-                    className="w-full h-full object-cover"
+                    onCanPlay={(e) => {
+                      e.currentTarget.play().catch(() => {});
+                      setVideoLoaded(true);
+                    }}
+                    onPlaying={() => setVideoLoaded(true)}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      videoLoaded ? "opacity-100" : "opacity-0"
+                    }`}
                   />
                 ) : (
                   <iframe
@@ -231,8 +236,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     <>
       <div
         ref={cardRef}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         className={`group relative flex flex-col rounded-3xl overflow-hidden bg-gradient-to-b from-[#0C1E32] to-[#071322] border border-white/15 hover:border-[#00D2FF]/60 shadow-2xl hover:shadow-[0_0_40px_rgba(0,210,255,0.2)] transition-all duration-500 hover:-translate-y-1.5 ${
           isCinema ? "p-3.5 sm:p-5" : "p-3"
         }`}
@@ -240,25 +243,23 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         {/* Large Video Frame with Automatic Playback */}
         <div
           onClick={() => setModalOpen(true)}
-          className={`relative w-full rounded-2xl overflow-hidden bg-black border border-white/10 group-hover:border-cyan-400/50 transition-colors cursor-pointer ${
+          className={`relative w-full rounded-2xl overflow-hidden bg-[#071320] border border-white/10 group-hover:border-cyan-400/50 transition-colors cursor-pointer ${
             isCinema ? "aspect-[16/10] sm:aspect-[16/9.5]" : "aspect-video"
           }`}
         >
-          {/* Poster fallback while video loads */}
+          {/* Poster fallback while video buffers */}
           <Image
             src={project.coverPoster}
             alt={`${project.title} - AI Video Production by Prime Edge`}
             fill
             priority={priority}
             sizes={isCinema ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 640px) 100vw, 33vw"}
-            className={`object-cover transition-opacity duration-700 ${
-              videoLoaded ? "opacity-0" : "opacity-100"
-            }`}
+            className="object-cover"
           />
 
           {/* Continuous Autoplay Video Preview */}
           {project.videoEmbedUrl && (
-            <div className="absolute inset-0 z-10 overflow-hidden bg-black">
+            <div className="absolute inset-0 z-10 overflow-hidden">
               {isDirectVideo ? (
                 <video
                   ref={videoRef}
@@ -269,7 +270,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   playsInline
                   preload="auto"
                   onLoadedData={() => setVideoLoaded(true)}
-                  className="w-full h-full object-cover"
+                  onCanPlay={(e) => {
+                    e.currentTarget.play().catch(() => {});
+                    setVideoLoaded(true);
+                  }}
+                  onPlaying={() => setVideoLoaded(true)}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                    videoLoaded ? "opacity-100" : "opacity-0"
+                  }`}
                 />
               ) : (
                 <iframe

@@ -120,7 +120,7 @@ export const Hero: React.FC = () => {
             <div className="absolute inset-0 z-10 overflow-hidden bg-black">
               <video
                 ref={reelVideoRef}
-                src="https://drive.google.com/uc?export=download&id=1bnkgbNHmmI8h8UOmhHd2s0tzOqr9FIcS"
+                src="/api/stream/1bnkgbNHmmI8h8UOmhHd2s0tzOqr9FIcS"
                 autoPlay
                 muted
                 loop

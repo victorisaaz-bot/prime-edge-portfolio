@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Play } from "lucide-react";
+
 import { getDirectStreamUrl } from "@/lib/videoUtils";
 
 interface ProjectVideoPlayerProps {
@@ -17,19 +19,7 @@ export const ProjectVideoPlayer: React.FC<ProjectVideoPlayerProps> = ({
   videoEmbedUrl,
   videoType = "drive",
 }) => {
-  const [isPlaying] = useState(true);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
-      }
-    }
-  }, [isPlaying]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   if (!videoEmbedUrl) {
     return (
@@ -45,32 +35,58 @@ export const ProjectVideoPlayer: React.FC<ProjectVideoPlayerProps> = ({
     );
   }
 
-  if (videoType === "mp4" || videoType === "drive") {
-    const streamUrl = videoType === "drive"
-      ? getDirectStreamUrl(videoEmbedUrl)
-      : videoEmbedUrl;
+  if (isPlaying) {
+    if (videoType === "mp4" || videoType === "drive") {
+      const streamUrl = videoType === "drive"
+        ? getDirectStreamUrl(videoEmbedUrl)
+        : videoEmbedUrl;
+      return (
+        <video
+          src={streamUrl}
+          controls
+          autoPlay
+          playsInline
+          className="w-full h-full object-contain bg-black"
+        />
+      );
+    }
+
     return (
-      <video
-        ref={videoRef}
-        src={streamUrl}
-        controls
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="w-full h-full object-contain bg-black"
+      <iframe
+        src={`${videoEmbedUrl}?autoplay=1&rel=0&modestbranding=1`}
+        title={`${title} - AI Video`}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="w-full h-full border-0"
       />
     );
   }
 
   return (
-    <iframe
-      src={`${videoEmbedUrl}?autoplay=1&mute=1&rel=0&modestbranding=1`}
-      title={`${title} - AI Video`}
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      className="w-full h-full border-0"
-    />
+    <div
+      onClick={() => setIsPlaying(true)}
+      onMouseEnter={() => setIsPlaying(true)}
+      className="group relative w-full h-full cursor-pointer overflow-hidden"
+    >
+      <Image
+        src={coverPoster}
+        alt={title}
+        fill
+        priority
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#06101E]/80 via-black/20 to-black/30 group-hover:opacity-70 transition-opacity" />
+
+      {/* Play button overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 transition-transform duration-300">
+          <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+        </div>
+        <span className="px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-bold tracking-wider text-white uppercase">
+          Play Video
+        </span>
+      </div>
+    </div>
   );
 };
+
