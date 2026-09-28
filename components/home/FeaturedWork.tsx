@@ -28,13 +28,14 @@ export const FeaturedWork: React.FC = () => {
           </div>
         </div>
 
-        {/* 6 Featured Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Large Cinema Showcase Cards (2-Column) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           {featuredProjects.map((project, idx) => (
             <ProjectCard
               key={project.id}
               project={project}
               priority={idx < 2}
+              layout="cinema"
             />
           ))}
         </div>
