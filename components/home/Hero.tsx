@@ -8,40 +8,19 @@ import { Play, ArrowUpRight, Sparkles, CheckCircle2, Clapperboard, Volume2 } fro
 
 export const Hero: React.FC = () => {
   const [reelModalOpen, setReelModalOpen] = useState(false);
-  const [isReelHovered, setIsReelHovered] = useState(false);
-  const reelHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [reelLoaded, setReelLoaded] = useState(false);
   const reelVideoRef = useRef<HTMLVideoElement | null>(null);
 
-  const handleReelMouseEnter = () => {
-    if (reelHoverTimeoutRef.current) clearTimeout(reelHoverTimeoutRef.current);
-    reelHoverTimeoutRef.current = setTimeout(() => {
-      setIsReelHovered(true);
-    }, 60);
-  };
-
-  const handleReelMouseLeave = () => {
-    if (reelHoverTimeoutRef.current) {
-      clearTimeout(reelHoverTimeoutRef.current);
-      reelHoverTimeoutRef.current = null;
-    }
-    setIsReelHovered(false);
-  };
-
   useEffect(() => {
-    if (isReelHovered && reelVideoRef.current) {
+    if (reelVideoRef.current) {
       reelVideoRef.current.defaultMuted = true;
       reelVideoRef.current.muted = true;
+      reelVideoRef.current.playsInline = true;
       const playPromise = reelVideoRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {});
       }
     }
-  }, [isReelHovered]);
-
-  useEffect(() => {
-    return () => {
-      if (reelHoverTimeoutRef.current) clearTimeout(reelHoverTimeoutRef.current);
-    };
   }, []);
 
   return (
@@ -125,48 +104,47 @@ export const Hero: React.FC = () => {
           <div
             className="relative aspect-video w-full rounded-xl overflow-hidden bg-[#071320] group cursor-pointer"
             onClick={() => setReelModalOpen(true)}
-            onMouseEnter={handleReelMouseEnter}
-            onMouseLeave={handleReelMouseLeave}
           >
-            {/* Poster / Showreel Artwork */}
+            {/* Poster / Showreel Artwork fallback */}
             <Image
               src="/thumbnails/aura-glow.jpg"
               alt="Prime Edge AI Filmmaking Official Showreel"
               fill
               priority
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className={`object-cover transition-opacity duration-700 ${
+                reelLoaded ? "opacity-0" : "opacity-100"
+              }`}
             />
 
-            {/* Hover Autoplay Video Preview */}
-            {isReelHovered && (
-              <div className="absolute inset-0 z-10 overflow-hidden bg-black animate-fadeIn pointer-events-none">
-                <video
-                  ref={reelVideoRef}
-                  src="https://drive.google.com/uc?export=download&id=1bnkgbNHmmI8h8UOmhHd2s0tzOqr9FIcS"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover scale-105"
-                />
-                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-cyan-400/30 text-[10px] font-medium text-cyan-300 pointer-events-none">
-                  <Volume2 className="w-3 h-3 text-[#00D2FF]" />
-                  <span>Click for full audio</span>
-                </div>
+            {/* Continuous Autoplay Video Preview */}
+            <div className="absolute inset-0 z-10 overflow-hidden bg-black">
+              <video
+                ref={reelVideoRef}
+                src="https://drive.google.com/uc?export=download&id=1bnkgbNHmmI8h8UOmhHd2s0tzOqr9FIcS"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                onLoadedData={() => setReelLoaded(true)}
+                className="w-full h-full object-cover scale-105"
+              />
+              <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1 rounded-md bg-black/85 backdrop-blur-md border border-cyan-400/30 text-[10px] sm:text-xs font-medium text-cyan-300 pointer-events-none z-20">
+                <Volume2 className="w-3.5 h-3.5 text-[#00D2FF]" />
+                <span>Click for Full Audio</span>
               </div>
-            )}
+            </div>
             
             {/* Cinematic Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06101E] via-black/20 to-black/30 group-hover:opacity-40 transition-opacity pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06101E] via-transparent to-black/30 group-hover:opacity-40 transition-opacity pointer-events-none z-10" />
 
-            {/* Play Button Indicator */}
-            <div className={`absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 sm:gap-4 pointer-events-none transition-opacity duration-300 ${isReelHovered ? 'opacity-0' : 'opacity-100'}`}>
-              <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform group-hover:scale-110 active:scale-95 transition-transform duration-300">
+            {/* Hover Play Button Indicator */}
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 sm:gap-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-[#00D2FF] text-[#06101E] flex items-center justify-center shadow-2xl shadow-cyan-500/50 transform scale-90 group-hover:scale-100 transition-transform duration-300">
                 <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-current ml-1" />
               </div>
               <div className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[11px] sm:text-sm font-bold tracking-wider text-white uppercase">
-                Watch 2025 Showreel (2 Min)
+                Watch 2025 Showreel (Full Audio)
               </div>
             </div>
 
